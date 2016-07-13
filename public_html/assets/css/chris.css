@@ -1,0 +1,13 @@
+.input-error {
+    color: red;
+    font-weight: bold;
+}
+.index-header {
+    color: #EEE;
+    font-size: 1.8em;
+    text-align: left;
+    margin-top: 30px;
+}
+.textIntro {
+    font-size: 1.3em;
+}
