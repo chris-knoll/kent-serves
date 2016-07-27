@@ -1,0 +1,432 @@
+/*	################################################################
+
+	Author: Team Macsimum
+              Kimberly M. Praxel
+              Nicole Bassen
+              Chris Knoll
+              Sergio Ramirez
+
+	Project Name: Kent Serves
+	Version: 1.0
+	URL: kent-serves.greenrivertech.net
+
+################################################################# */
+
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,700,900);
+@import url(http://fonts.googleapis.com/css?family=Lato:400,900);
+@import url("prettyPhoto.css") screen;
+@import url("hoverex-all.css") screen;
+
+/*	################################################################
+	1. GENERAL STRUCTURES
+################################################################# */
+
+* {
+    margin: 0;
+    padding: 0px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body {
+    background: #002C5F;
+    margin: 0;
+    height: 100%;
+    color: #384452;
+    font-family: 'Muli', sans-serif;
+    font-weight: 400;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    color: #00b3fe;
+}
+p {
+    padding: 0;
+    margin-bottom: 12px;
+    font-family: 'Muli', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: white;
+    margin-top: 10px;
+}
+p.textIntro {
+    text-align: left;
+    color: #ffffff;
+}
+.textIntro{
+  font-size: 1.3em;
+}
+ul {
+    list-style-type: none;
+    padding: 0px 15px 15px 15px;
+}
+li{
+  text-align: left;
+  color: #ffffff;
+  text-indent: 25px;
+  font-family: 'Muli', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: white;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+img.logo {
+    max-height: 100px;
+    max-width: 50%;
+}
+a {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    -webkit-transition: background-color .4s linear, color .4s linear;
+    -moz-transition: background-color .4s linear, color .4s linear;
+    -o-transition: background-color .4s linear, color .4s linear;
+    -ms-transition: background-color .4s linear, color .4s linear;
+    transition: background-color .4s linear, color .4s linear;
+}
+a:hover, a:focus {
+    text-decoration: none;
+    color: #01b2fe;
+}
+::-moz-selection {
+    color: #fff;
+    text-shadow: none;
+    background: #2B2E31;
+}
+::selection {
+    color: #fff;
+    text-shadow: none;
+    background: #2B2E31;
+}
+label {
+    color: #ffffff;
+    margin: 2px 0px 0px 0px;
+}
+.index-header{
+  color: #EEE;
+  font-size: 1.8em;
+  text-align: left;
+  margin-top: 30px;
+}
+.input-error{
+  color: red;
+}
+i{
+  font-size: 18px;
+}
+
+/*	################################################################
+	BOOTSTRAP MODIFICATIONS & TWEAKS
+################################################################# */
+
+.navbar {
+    min-height: 70px;
+    padding-top: 10px;
+    margin-bottom: 0px;
+}
+
+.navbar-default .navbar-nav> li> a {
+    color: #69BE28;
+    font-weight: 700;
+    font-size: 12px;
+}
+.navbar-default .navbar-nav> li> a:hover {
+    color: #162A46;
+}
+.navbar-default .navbar-nav> li.current-menu-item> a, .navbar-default .navbar-nav> .current-menu-item> a:hover, .navbar-default .navbar-nav> .current-menu-item> a:focus {
+    color: #384452;
+    background-color: transparent;
+}
+.navbar-default {
+    background-color: #ffffff;
+    border-color: transparent;
+}
+.btn-primary {
+    background-color: #69BE28;
+    border-color: #69BE28;
+    color: #fff;
+}
+.btn-primary:hover {
+    background-color: #fff;
+    border-color: #fff;
+    color: #69BE28;
+}
+.btn-theme:hover, .btn-theme:focus,{
+    color: #fff;
+    background-color: #69BE28;
+    border-color: #69BE28;
+}
+.dmbutton:hover, .dmbutton:focus {
+    color: #ffffff;
+    background-color: #222222;
+    border-color: #ffffff;
+}
+.mtb {
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+.hline {
+    border-bottom: 2px solid #69BE28;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: #69BE28;
+}
+.hline-w {
+    border-bottom: 2px solid #ffffff;
+    margin-bottom: 25px;
+}
+
+/*	################################################################
+	SITE WRAPS
+################################################################# */
+
+#headerwrap {
+    background-color: #002C5F;
+    min-height: 550px;
+    padding-top: 100px;
+    padding-bottom: 0px;
+    text-align: center;
+}
+#headerwrap h3, h5 {
+    color: #69BE28;
+    font-weight: 400;
+    text-shadow: 1px 1px 1px #162A46;
+}
+#headerwrap h1 {
+    color: #69BE28;
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 1px #162A46;
+}
+
+/* Footer */
+
+#footerwrap {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    background-color: #162A46;
+}
+#footerwrap p {
+    color: #bfc9d3;
+}
+#footerwrap h4 {
+    color: white;
+}
+#footerwrap i {
+    font-size: 30px;
+    color: #bfc9d3;
+    padding-right: 25px;
+}
+#footerwrap i:hover {
+    color: #69BE28
+}
+
+/*	################################################################
+	TABLE CONFIGURATIONS
+#################################################################*/
+
+table {
+    border-collapse: separate;
+    background: #fff;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
+thead {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+thead th {
+    font-family: 'Patua One', cursive;
+    font-family: 'Muli', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #00b3fe;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+    text-align: left;
+    padding: 20px;
+    background-color: #4a5564;
+    border-top: 1px solid #858d99;
+}
+thead th:first-child {
+    -moz-border-radius-topleft: 5px;
+    -webkit-border-top-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+thead th:last-child {
+    -moz-border-radius-topright: 5px;
+    -webkit-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+tbody tr td {
+    font-family: 'Muli', sans-serif;
+    font-weight: 400;
+    color: #5f6062;
+    font-size: 13px;
+    padding: 20px 20px 20px 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+tbody tr:nth-child(2n) {
+    background: #f0f3f5;
+}
+tbody tr:last-child td {
+    border-bottom: none;
+}
+tbody tr:last-child td:first-child {
+    -moz-border-radius-bottomleft: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+tbody tr:last-child td:last-child {
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+tbody:hover> tr td {
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=50);
+    opacity: 0.5;
+    /* uncomment for blur effect */
+    /* color:transparent;
+  @include text-shadow(0px 0px 2px rgba(0,0,0,0.8));*/
+}
+tbody:hover> tr:hover td {
+    text-shadow: none;
+    color: #2d2d2d;
+    filter: progid: DXImageTransform.Microsoft.Alpha(enabled=false);
+    opacity: 1;
+}
+
+/* ADMIN VIEW STYLES */
+
+th.adminTableView, td.adminTableView {
+    display: none;
+}
+
+a.editOrganization {
+    margin-left: 5px;
+}
+
+
+/*	################################################################
+	PAGE CONFIGURATIONS
+################################################################# */
+
+
+/* General Tweaks */
+
+#blue {
+    background: #00b3fe;
+    margin-top: 50px;
+    margin-bottom: 60px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+#blue h3 {
+    color: white;
+    margin-left: 15px;
+}
+
+
+/*	################################################################
+	CALENDAR CONFIGURATIONS
+################################################################# */
+
+
+.calendarEventDay {
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+.calendarEventTitle {
+	margin-left: 10px;
+	font-size: 1.1em;
+}
+
+.calendarEventRow {
+	margin-bottom: 5px;
+}
+
+.calendar-month {
+	margin-top:30px;
+	height: 250px;
+}
+
+/*	################################################################
+	LOG IN SYSTEM CONFIGURATIONS
+################################################################# */
+
+.form-signin {
+	width: 300px;
+	margin: 0 auto;
+}
+
+.form-signin button {
+	margin-top: 20px;
+}
+
+.profile {
+	width: 400px;
+	margin: 150px auto;
+}
+
+/*	################################################################
+ORGANIZATION DETAILS CONFIGURATIONS
+################################################################# */
+
+.org-details-container {
+    margin-top: 25px;
+}
+
+.panel {
+    padding: 0;
+}
+
+.panel-heading {
+    background-color: white;
+}
+
+.detail-panel-heading {
+    margin: 0;
+}
+
+.detail-panel-heading-dark {
+    color: #002C5F;
+    margin: 0;
+}
+
+.detail-panel-body {
+    padding: 10px;
+}
+
+.detail-panel-text {
+    margin: 10px;
+}
+
+.detail-heading {
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+
+.detail-text {
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+
+p.larger-text {
+    color: black;
+    font-size: larger;
+}
+
+p.org-details-list {
+    margin: 0;
+    padding: 0;
+}

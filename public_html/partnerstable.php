@@ -1,3 +1,4 @@
+<?php require('./inc/utilities.inc.php'); ?>
 <!-- scripts -->
 <script src='assets/js/org-table-events.js'></script>
 
@@ -5,6 +6,7 @@
 require_once('./inc/header.php');
 require('../db.php');
 require('inc/db_functions/org-main-queries.php');
+//require('inc/ui-functions.php');
 ?>
 
 
@@ -26,13 +28,13 @@ PARTNERS TABLE
 ***************************************************************************************************************** -->
 
 <div class="container mtb">
+	<!-- Switch between public (default) and admin views -->
+	<?php if ($user && $user->isAdmin()): ?>
 	<p class="pull-right adminFeature">Change View:&nbsp;&nbsp;
 		<a onclick="disableAdminView()">Public</a> |
 		<a onclick="enableAdminView()">Admin</a>
 	</p>
-
-	<?php $allOrganizations = selectAllOrganizations(); ?>
-
+	<?php endif ?>
 	<div class="row">
 		<div class="col-xs-12">
 			<table class="table">
@@ -41,21 +43,12 @@ PARTNERS TABLE
 						<th class="orgNameCol">Organization</th>
 						<th class="contactCol">Contact Name</th>
 						<th class="emailCol">Email</th>
-						<th class="adminTableView">Actions</th>
+						<th class="adminTableView">Actions</th> <!-- Visible in admin view only -->
 					</tr>
 				</thead>
 				<tbody>
 					<?php
-					// Display a row for each organization registered.
-					foreach($allOrganizations as $row) {
-						echo "<tr>";
-						echo "<td class='orgNameCol'>" . $row['org_name'] . "</td>";
-						echo "<td class='contactCol'>" . $row['main_contact_name'] . "</td>";
-						echo "<td class='emailCol'>" . $row['main_contact_email'] . "</td>";
-						echo "<td class='adminTableView'>";
-						echo "<a class='deleteOrganization' href='/inc/db_functions/delete-organization.php?rowId=" . $row['org_id'] . "'>Delete</a></td>";
-						echo "<tr>";
-					}
+						buildPartnersTable();
 					?>
 				</tbody>
 

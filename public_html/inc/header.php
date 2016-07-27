@@ -9,17 +9,28 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
   <link rel="icon" href="assets/img/favicon.ico">
 
+  <!--copy cat kent city font (aka free font)-->
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
   <title>Kent Serves</title>
 
   <!-- Bootstrap core CSS -->
   <link href="assets/css/bootstrap.css" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <!-- Font Awesome styles for this template -->
   <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 
-  <!-- Kim's Table CSS Option -->
-  <link href="assets/css/tables.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="assets/css/editedStyle.css" rel="stylesheet">
+  <!--  <link href="assets/css/style.css" rel="stylesheet"> -->
+
+
+
+  <!-- Nicole's CSS -->
+  <link href="assets/css/nicole.css" rel="stylesheet">
+
+  <!-- Sergio's CSS -->
+  <link href="assets/css/sergio.css" rel="stylesheet">
 
   <!-- Chris' CSS -->
   <link href="assets/css/chris.css" rel="stylesheet">
@@ -59,6 +70,10 @@
           <li <?php if($currentPage == "index.php") echo 'class="current-menu-item"'; ?>><a href="index.php">HOME</a></li>
           <li <?php if($currentPage == "register.php") echo 'class="current-menu-item"'; ?>><a href="register.php">REGISTER</a></li>
           <li <?php if($currentPage == "partnerstable.php") echo 'class="current-menu-item"'; ?>><a href="partnerstable.php">PARTNERS</a></li>
+          <li <?php if($currentPage == "calendar.php") echo 'class="current-menu-item"'; ?>><a href="calendar.php">EVENTS</a></li>
+          <?php $linkToDisplay = ($user) ? "<a href='profile.php'>PROFILE</a>" : "<a href='login.php'>LOGIN</a>"; ?>
+          <li><?php echo $linkToDisplay; ?></li>
+          <?php if($user) echo "<li><a href='logout.php'>LOGOUT</a></li>"; ?>
         </ul>
       </div><!--/.nav-collapse -->
     </div>

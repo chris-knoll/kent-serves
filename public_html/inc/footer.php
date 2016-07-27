@@ -8,7 +8,7 @@ FOOTER
 			<div class="col-lg-4">
 				<h4>About Kent Serves</h4>
 				<div class="hline-w"></div>
-				<p>A grassroots effort designed to increase communication, provide opportunities for information
+				<p>A grassroots effort within the non-profit and service community designed to increase communication, provide opportunities for information
 					sharing, community calendaring, and create connections and potential collaboration on efforts
 					that require volunteer and financial resources.</p>
 				</div>
@@ -19,7 +19,7 @@ FOOTER
 						<a href="#"><i class="fa fa-facebook"></i></a>
 						<a href="#"><i class="fa fa-twitter"></i></a>
 						<a href="#"><i class="fa fa-instagram"></i></a>
-						<a href="mailto:kpraxel@mail.greenriver.edu?Subject=Email%20From%20Kent%20Serves%20website" target="_top"><i class="fa fa-envelope"></i>
+						<a href="mailto:kpraxel@mail.greenriver.edu?Subject=Email%20From%20Kent%20Serves%20website" target="_top"><i class="fa fa-envelope"></i></a>
 						</p>
 					</div>
 					<div class="col-lg-4">
@@ -32,9 +32,9 @@ FOOTER
 						</p>
 					</div>
 
-				</div><! --/row -->
-			</div><! --/container -->
-		</div><! --/footerwrap -->
+				</div><!--/row -->
+			</div><!--/container -->
+		</div><!--/footerwrap -->
 
 		<!-- Bootstrap core JavaScript
 		================================================== -->

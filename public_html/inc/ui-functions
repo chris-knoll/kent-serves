@@ -1,0 +1,40 @@
+<? php
+include('db-functions/org-main-queries.php');
+
+// Builds a table that displays all organizations in the org_main DB table
+function buildOrgDetailsTable() {
+  $allOrganizations = getAllOrganizations();
+
+  // Display a row for each organization registered.
+  foreach($allOrganizations as $row) {
+    // Assign results to variables
+    $orgId = htmlentities($row['org_id']);
+    $orgName = htmlentities($row['org_name']);
+    $mainContactName = htmlentities($row['main_contact_name']);
+    $mainContactEmail = htmlentities($row['main_contact_email']);
+
+  	// Generate a unique URL for each organization
+  	$url = "org_details.php?" . http_build_query(array('id'=>$orgId));
+	
+  	echo "<tr>";
+  	echo "<td class='orgNameCol'><a href='$url'>" . $orgName . "</a></td>";
+  	echo "<td class='contactCol'>" . $mainContactName . "</td>";
+  	echo "<td class='emailCol'>" . $mainContactEmail . "</td>";
+  	echo "<td class='adminTableView'>";
+  	echo "<a class='deleteOrganization' href='/inc/db_functions/delete-organization.php?rowId=" . $orgId . "'>Delete</a></td>";
+  	echo "<tr>";
+  }
+}
+
+// Prints 
+function getPageTitle($thisOrganization) {
+  
+}
+
+// 
+function editButton($org_id) {
+  // "if user is logged in and the organization belongs to his/her account"
+  
+}
+
+?>
