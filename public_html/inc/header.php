@@ -15,25 +15,24 @@
   <title>Kent Serves</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="assets/css/bootstrap.css" rel="stylesheet">
+  <link href="<?php echo $_SERVER["URI"]; ?>/assets/css/bootstrap.css" rel="stylesheet">
 
   <!-- Font Awesome styles for this template -->
-  <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+  <link href="<?php echo $_SERVER["URI"]; ?>/assets/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="assets/css/editedStyle.css" rel="stylesheet">
+  <link href="<?php echo $_SERVER["URI"]; ?>/assets/css/editedStyle.css" rel="stylesheet">
   <!--  <link href="assets/css/style.css" rel="stylesheet"> -->
 
 
-
   <!-- Nicole's CSS -->
-  <link href="assets/css/nicole.css" rel="stylesheet">
+  <link href="<?php echo $_SERVER["URI"]; ?>/assets/css/nicole.css" rel="stylesheet">
 
   <!-- Sergio's CSS -->
-  <link href="assets/css/sergio.css" rel="stylesheet">
+  <link href="<?php echo $_SERVER["URI"]; ?>/assets/css/sergio.css" rel="stylesheet">
 
   <!-- Chris' CSS -->
-  <link href="assets/css/chris.css" rel="stylesheet">
+  <link href="<?php echo $_SERVER["URI"]; ?>/assets/css/chris.css" rel="stylesheet">
 
 
   <!-- Just for debugging purposes. Don't actually copy this line! -->
@@ -45,10 +44,10 @@
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
 
-  <script src="assets/js/modernizr.js"></script>
+  <script src="<?php echo $_SERVER["URI"]; ?>/assets/js/modernizr.js"></script>
 </head>
-
 <body>
+<header>
   <?php // Get page name so we can display the proper active link
   $currentPage = basename($_SERVER['PHP_SELF']);
   ?>
@@ -62,21 +61,22 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="index.php"><img class="logo" src="assets/img/LogoNew.png" alt="Kent Serves"></a>
-        <!--<a class="navbar-brand" href="index.php">Kent Serves</a>-->
+        <a href="index.php"><img class="logo" src="<?php $_SERVER["URI"];?>/assets/img/LogoNew.png" alt="Kent Serves"></a>
       </div>
       <div class="navbar-collapse collapse navbar-right">
         <ul class="nav navbar-nav">
-          <li <?php if($currentPage == "index.php") echo 'class="current-menu-item"'; ?>><a href="index.php">HOME</a></li>
-          <li <?php if($currentPage == "register.php") echo 'class="current-menu-item"'; ?>><a href="register.php">REGISTER</a></li>
-          <li <?php if($currentPage == "partnerstable.php") echo 'class="current-menu-item"'; ?>><a href="partnerstable.php">PARTNERS</a></li>
-          <li <?php if($currentPage == "calendar.php") echo 'class="current-menu-item"'; ?>><a href="calendar.php">EVENTS</a></li>
-          <?php $linkToDisplay = ($user) ? "<a href='profile.php'>PROFILE</a>" : "<a href='login.php'>LOGIN</a>"; ?>
+          <li <?php if($currentPage == "index.php") echo 'class="current-menu-item"'; ?>><a href="<?php echo $_SERVER["URI"];?>/index.php">HOME</a></li>
+          <li <?php if($currentPage == "register.php") echo 'class="current-menu-item"'; ?>><a href="<?php echo $_SERVER["URI"];?>/register.php">REGISTER</a></li>
+          <li <?php if($currentPage == "partnerstable.php") echo 'class="current-menu-item"'; ?>><a href="<?php echo $_SERVER["URI"];?>/partnerstable.php">PARTNERS</a></li>
+          <li <?php if($currentPage == "calendar.php") echo 'class="current-menu-item"'; ?>><a href="<?php echo $_SERVER["URI"];?>/calendar.php">EVENTS</a></li>
+          <?php $linkToDisplay = ($user) ? "<a href='profile.php'>PROFILE</a>" : "<a href='" . $_SERVER["URI"] . "/login.php'>LOGIN</a>"; ?>
           <li><?php echo $linkToDisplay; ?></li>
-          <?php if($user) echo "<li><a href='logout.php'>LOGOUT</a></li>"; ?>
+          <?php if($user) echo "<li><a href='" . $_SERVER["URI"] . "logout.php'>LOGOUT</a></li>"; ?>
         </ul>
       </div><!--/.nav-collapse -->
     </div>
   </div>
+</header>
 
-  <?php require_once('../db.php'); ?>
+
+  <?php require_once($_SERVER["DOCUMENT_ROOT"] . '/../db.php'); ?>

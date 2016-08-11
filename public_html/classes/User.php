@@ -30,7 +30,8 @@ class User {
 
   function displayProfile() {
     echo "Email Address: " . $this->email . "<br />";
-    echo "User Type: " . $this->user_type . "<br />";
+    echo "User Type: " . $this->user_type . "<br /><br />";
+    echo "<div class='text-center'><a href='org_details.php?id=" . $this->getOrgId() . "' class='btn btn-primary'>My Organization</a></div>";
     /*
     echo "Organization ID: ";
       if ($this->user_type == 'organization') {

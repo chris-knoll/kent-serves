@@ -39,13 +39,13 @@ HEADERWRAP
 							<div class="index-header">Who should join Kent Serves?</div>
 							<div class="hline"></div>
 							<p class="textIntro">Representatives of Kent area
-								Service Clubs, Non Profit and all organizations that:
+								Service Clubs, Non Profit and all organizations that:</p>
 								<ul>
 									<li class="textIntro">1.&nbsp;&nbsp;Provide funding, services &/or volunteers</li>
 									<li class="textIntro">2.&nbsp;&nbsp;Have a need for funding, services &/or volunteers</li>
 									<li class="textIntro">3.&nbsp;&nbsp;Are looking for information on events and activities relevant to their members.</li>
 								</ul>
-							</p>
+
 							<div class="textcenter">
 								<a href="register.php" class="btn btn-primary">Register Your Organization</a>
 							</div>

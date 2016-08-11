@@ -19,7 +19,7 @@ FOOTER
 						<a href="#"><i class="fa fa-facebook"></i></a>
 						<a href="#"><i class="fa fa-twitter"></i></a>
 						<a href="#"><i class="fa fa-instagram"></i></a>
-						<a href="mailto:kpraxel@mail.greenriver.edu?Subject=Email%20From%20Kent%20Serves%20website" target="_top"><i class="fa fa-envelope"></i></a>
+						<a href="mailto:Jgerstman@greenriver.edu?Subject=Email%20From%20Kent%20Serves%20website" target="_top"><i class="fa fa-envelope"></i></a>
 						</p>
 					</div>
 					<div class="col-lg-4">

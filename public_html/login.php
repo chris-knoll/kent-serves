@@ -13,7 +13,7 @@ catch(PDOException $e) {
 if (isset($_POST['submit'])) { // Handle login submission
 
   // Check if the login is in the database:
-  $q = 'SELECT id, user_type, username, email FROM kentserv_organizations.users WHERE email=:email AND password=SHA1(:pass)';
+  $q = 'SELECT id, org_id, user_type, username, email FROM kentserv_organizations.users WHERE email=:email AND password=SHA1(:pass)';
   $statement = $dbh->prepare($q);
   $r = $statement->execute(array(':email' => $_POST['inputEmail'], ':pass' => $_POST['inputPassword']));
 
@@ -30,7 +30,11 @@ if (isset($_POST['submit'])) { // Handle login submission
     $_SESSION['user'] = $user;
 
     // redirect
-    header("Location: index.php");
+    if($user->isAdmin()) {
+      header("Location: partnerstable.php");
+    } else {
+      header("Location: org_details.php?id=" . $user->getOrgId());
+    }
     exit;
   }
 

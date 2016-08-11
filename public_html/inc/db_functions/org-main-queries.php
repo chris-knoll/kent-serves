@@ -1,35 +1,27 @@
 <?php
-//require('../../../db.php');
-try {
-      // instantiate a database object
-      $dbh = new PDO("mysql:host=localhost; dbname=kentserv_organizations",
-      "kentserv_user", "@pple!");
-    }
-    catch(PDOException $e) {
-      echo $e->getmessage();
-    }
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../db.php');
 
 // Returns all organizations
 function getAllOrganizations() {
   global $dbh;
-  
+
   $selectAllQuery = "SELECT * FROM kentserv_organizations.orgs_main";
   $statement = $dbh->prepare($selectAllQuery);
   $statement->execute();
   $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-  
+
   return $result;
 }
 
 // Returns contact info of all organizations
 function getAllOrganizationsContact() {
   global $dbh;
-  
-  $selectAllQuery = "SELECT * FROM kentserv_organizations.orgs_main";
+
+  $selectAllQuery = "SELECT * FROM kentserv_organizations.orgs_contact";
   $statement = $dbh->prepare($selectAllQuery);
   $statement->execute();
   $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-  
+
   return $result;
 }
 
@@ -41,7 +33,7 @@ function getSingleOrganization($org_id) {
   $statement = $dbh->prepare($selectQuery);
   $statement->execute();
   $result = $statement->fetch();
-  
+
   return $result;
 }
 
@@ -55,12 +47,26 @@ function getContactInfo($org_id) {
   return $result;
 }
 
+// Check if organization name is already registered
+function organizationWithGivenNameAlreadyExists($org_name) {
+   global $dbh;
+   $selectQuery = "SELECT org_name FROM kentserv_organizations.orgs_main WHERE org_name='" . $org_name . "' LIMIT 1;";
+   $statement = $dbh->prepare($selectQuery);
+   $statement->execute();
+   $result = $statement->fetch();
+   if($result) {
+      return true;
+   } else {
+      return false;
+   }
+}
+
 // Inserts a new organization with the given details into the orgs_main table
 function insertNewOrganization($name, $address, $phone, $website, $facebook, $serviceArea,
 							   $volunteer_need, $board_mem_need, $funding_need, $partnerships_need,
 							   $space_need, $other_need, $mission) {
   global $dbh;
-  
+
   $insertQuery = "INSERT into kentserv_organizations.orgs_main ";
   $insertQuery .= "(org_name, address, org_phone, website, facebook, service_area, volunteer_need, ";
   $insertQuery .= "board_mem_need, funding_need, partnerships_need, space_need, other_need, mission) ";
@@ -88,7 +94,7 @@ function insertNewOrganization($name, $address, $phone, $website, $facebook, $se
 function insertContactInfo($name, $mainContact, $mainContactEmail, $mainContactPhone,
 							   $altContact, $altContactEmail, $altContactPhone) {
   global $dbh;
-  
+
   // get the id of the row in orgs_main of the associated organization
   $selectQuery = "SELECT * FROM kentserv_organizations.orgs_main WHERE org_name='" . $name . "' LIMIT 1;";
   $statement = $dbh->prepare($selectQuery);
@@ -117,7 +123,7 @@ function editOrganization($id, $name, $address, $phone, $website, $facebook, $se
 							   $volunteer_need, $board_mem_need, $funding_need, $partnerships_need,
 							   $space_need, $other_need, $mission) {
   global $dbh;
-  
+
   $updateQuery = "UPDATE orgs_main SET org_name = :name, address = :address, org_phone = :phone, ";
   $updateQuery .= "website = :web, facebook = :fb, service_area = :svcarea, volunteer_need = :vneed, ";
   $updateQuery .= "board_mem_need = :bmemneed, funding_need = :fndneed, partnerships_need = :psneed, ";
@@ -145,7 +151,7 @@ function editOrganization($id, $name, $address, $phone, $website, $facebook, $se
 function editContactInfo($org_id, $name, $mainContact, $mainContactEmail, $mainContactPhone,
 							   $altContact, $altContactEmail, $altContactPhone) {
   global $dbh;
-  
+
   $updateQuery = "UPDATE orgs_contact SET main_contact_name = :mc, main_contact_email = :mcEmail, ";
   $updateQuery .= "main_contact_phone = :mcPhone, alt_contact_name = :alt, alt_contact_email = :altEmail, ";
   $updateQuery .= "alt_contact_phone = :altPhone WHERE org_id = :id;";
@@ -174,35 +180,38 @@ function removeOrganization($org_id) {
 }
 
 // Builds a table that displays all organizations in the org_main DB table
-function buildPartnersTable() {
-  $allOrganizations = getAllOrganizations();
+function buildPartnersTable($query) {
   $allContactInfo = getAllOrganizationsContact();
+  global $dbh;
+  $statement = $dbh->prepare($query);
+  $statement->bindParam(':id', $org_id, PDO::PARAM_INT);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
   // Display a row for each organization registered.
-  foreach($allOrganizations as $row) {
-	
+  foreach($result as $row) {
+
+    global $user;
     // Assign results to variables
     $org_id = htmlentities($row['org_id']);
-	$contactInfo = getContactInfo($org_id);
+    $contactInfo = getContactInfo($org_id);
     $orgName = htmlentities($row['org_name']);
     $mainContactName = htmlentities($contactInfo['main_contact_name']);
     $mainContactEmail = htmlentities($contactInfo['main_contact_email']);
 
   	// Generate a unique URL for each organization
   	$url = "org_details.php?" . http_build_query(array('id'=>$org_id));
-	
+
   	echo "<tr>";
   	echo "<td class='orgNameCol'><a href='$url'>" . $orgName . "</a></td>";
   	echo "<td class='contactCol'>" . $mainContactName . "</td>";
-  	echo "<td class='emailCol'>" . $mainContactEmail . "</td>";
-	if ($user && $user->isAdmin()) {
-	  echo "<td class='adminTableView'>";
-	  $actions = "<a class='deleteOrganization' href='/inc/db_functions/delete-organization.php?rowId=" . $org_id . "'>Delete</a>";
-	  $actions .= "<a class='editOrganization' href='edit_profile.php?" . $org_id . "'>Edit</a>";
-	  echo $actions;
-	  echo "</td>";
-	}	
-  	echo "</tr>";
+  	echo "<td class='emailCol'>" . $mainContactEmail;
+  	if ($user && $user->isAdmin()) {
+  	  $actions = "<span class='pull-right'><a class='deleteOrganization' href='/inc/db_functions/delete-organization.php?rowId=" . $org_id . "'>Delete</a>";
+  	  $actions .= "<a class='editOrganization' href='edit_profile.php?" . $org_id . "'>Edit</a></span>";
+  	  echo $actions;
+  	}
+  	echo "</td></tr>";
   }
 }
 
@@ -236,9 +245,9 @@ function displayContactInfo($org_id) {
 
   // general details
   echo "<p class='detail-text'>" . $thisOrganization['org_name'] . "<br>";
-  echo $thisOrganization['address'] . "<br>"; 
+  echo $thisOrganization['address'] . "<br>";
   echo $thisOrganization['org_phone'] . "</p>";
-  
+
   if ($thisOrganization['website']) {
 	echo "<p class='detail-text'>Website: <a href='" . $thisOrganization['website'] . "'>" .
 		$thisOrganization['website'] . "</a></p>";
@@ -247,7 +256,7 @@ function displayContactInfo($org_id) {
 	echo "<p class='detail-text'>Facebook: <a href='" . $thisOrganization['facebook'] . "'>" .
 		$thisOrganization['facebook'] . "</a></p>";
   }
-  
+
   // primary contact
   echo "<p class='detail-text'>Primary Contact:<br>";
   echo $contactInfo['main_contact_name'] . "<br>";
@@ -256,7 +265,7 @@ function displayContactInfo($org_id) {
 	echo prettyPhoneNumber($contactInfo['main_contact_phone']);
   }
   echo "</p>";
-  
+
   // alternative contact
   if ($contactInfo['alt_contact_name'] || $contactInfo['alt_contact_email'] ||
 	  $contactInfo['alt_contact_phone']) {
@@ -272,15 +281,30 @@ function displayContactInfo($org_id) {
 	}
 	echo "</p>";
   }
-  
+
 }
 
 
 // Displays an edit button if conditions are met
 function editButton($org_id) {
+  global $user;
   // "if user is logged in AND the organization belongs to his/her account"a
   $url = "edit_profile.php?" . http_build_query(array('id'=>$org_id));
-  echo "<a href='$url'><button id='editOrgDetails' class='btn btn-default pull-right'>Edit Profile</button></a>";
+  if($user) {
+    if($user->isAdmin() || $user->getOrgId() == $org_id) {
+      echo "<a href='$url'><button id='editOrgDetails' class='btn btn-default pull-right'>Edit Profile</button></a>";
+    }
+  }
+}
+
+function addEventButton($org_id) {
+  global $user;
+  $url = "events-form.php";
+  if($user) {
+    if($user->isAdmin() || $user->getOrgId() == $org_id) {
+      echo "<a href='$url'><button id='editOrgDetails' class='btn btn-default pull-right'>Add New Event</button></a>";
+    }
+  }
 }
 
 function editOrg($org_id) {

@@ -35,11 +35,12 @@ body {
     color: #384452;
     font-family: 'Muli', sans-serif;
     font-weight: 400;
+    padding-top: 75px;
 }
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Raleway', sans-serif;
     font-weight: 700;
-    color: #00b3fe;
+    color: #add8e6 ;
 }
 p {
     padding: 0;
@@ -58,6 +59,9 @@ p.textIntro {
 .textIntro{
   font-size: 1.3em;
 }
+li.textIntro{
+  text-indent: 25px;
+}
 ul {
     list-style-type: none;
     padding: 0px 15px 15px 15px;
@@ -65,7 +69,6 @@ ul {
 li{
   text-align: left;
   color: #ffffff;
-  text-indent: 25px;
   font-family: 'Muli', sans-serif;
   font-weight: 400;
   font-size: 14px;
@@ -90,9 +93,13 @@ a {
     -ms-transition: background-color .4s linear, color .4s linear;
     transition: background-color .4s linear, color .4s linear;
 }
-a:hover, a:focus {
+a.more{
+  color: #69BE28;
+}
+
+a:hover{
     text-decoration: none;
-    color: #01b2fe;
+    color: #69BE28;
 }
 ::-moz-selection {
     color: #fff;
@@ -121,6 +128,11 @@ i{
   font-size: 18px;
 }
 
+.rborder{
+  margin-top: 20px;
+}
+
+
 /*	################################################################
 	BOOTSTRAP MODIFICATIONS & TWEAKS
 ################################################################# */
@@ -139,7 +151,7 @@ i{
 .navbar-default .navbar-nav> li> a:hover {
     color: #162A46;
 }
-.navbar-default .navbar-nav> li.current-menu-item> a, .navbar-default .navbar-nav> .current-menu-item> a:hover, .navbar-default .navbar-nav> .current-menu-item> a:focus {
+.navbar-default .navbar-nav> li.current-menu-item> a, .navbar-default .navbar-nav> .current-menu-item> a:hover, .navbar-default .navbar-nav> .current-menu-item>  {
     color: #384452;
     background-color: transparent;
 }
@@ -157,19 +169,19 @@ i{
     border-color: #fff;
     color: #69BE28;
 }
-.btn-theme:hover, .btn-theme:focus,{
+.btn-theme:hover,{
     color: #fff;
     background-color: #69BE28;
     border-color: #69BE28;
 }
-.dmbutton:hover, .dmbutton:focus {
+.dmbutton:hover,{
     color: #ffffff;
     background-color: #222222;
     border-color: #ffffff;
 }
 .mtb {
-    margin-top: 80px;
-    margin-bottom: 80px;
+    margin-top: 35px;
+    margin-bottom: 35px;
 }
 .hline {
     border-bottom: 2px solid #69BE28;
@@ -182,6 +194,8 @@ i{
     margin-bottom: 25px;
 }
 
+
+
 /*	################################################################
 	SITE WRAPS
 ################################################################# */
@@ -189,7 +203,7 @@ i{
 #headerwrap {
     background-color: #002C5F;
     min-height: 550px;
-    padding-top: 100px;
+    padding-top: 35px;
     padding-bottom: 0px;
     text-align: center;
 }
@@ -230,6 +244,12 @@ i{
 	TABLE CONFIGURATIONS
 #################################################################*/
 
+
+
+table.dataTable thead .sorting {
+  background-color: #4a5564;
+}
+
 table {
     border-collapse: separate;
     background: #fff;
@@ -250,7 +270,7 @@ thead th {
     font-family: 'Muli', sans-serif;
     font-size: 16px;
     font-weight: 400;
-    color: #00b3fe;
+    color: #f0f8ff ;
     text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
     text-align: left;
     padding: 20px;
@@ -315,6 +335,13 @@ a.editOrganization {
     margin-left: 5px;
 }
 
+.container .optionsContent {
+    display: none;
+    padding : 5px;
+}
+
+
+
 
 /*	################################################################
 	PAGE CONFIGURATIONS
@@ -324,7 +351,7 @@ a.editOrganization {
 /* General Tweaks */
 
 #blue {
-    background: #00b3fe;
+    background: #f0f8ff ;
     margin-top: 50px;
     margin-bottom: 60px;
     padding-top: 25px;
@@ -340,6 +367,9 @@ a.editOrganization {
 	CALENDAR CONFIGURATIONS
 ################################################################# */
 
+.calendarPadding{
+  padding-top: 50px;
+}
 
 .calendarEventDay {
 	font-weight: bold;
@@ -355,10 +385,20 @@ a.editOrganization {
 	margin-bottom: 5px;
 }
 
-.calendar-month {
-	margin-top:30px;
+.calendar-month .panel-body {
 	height: 250px;
+   overflow-y: auto;
 }
+
+#testDiv {
+    margin-left: 5px;
+}
+
+#eventTitleDiv {
+    margin-left: 5px;
+}
+
+
 
 /*	################################################################
 	LOG IN SYSTEM CONFIGURATIONS
@@ -381,9 +421,12 @@ a.editOrganization {
 /*	################################################################
 ORGANIZATION DETAILS CONFIGURATIONS
 ################################################################# */
+.container mtb org-details-container{
+  margin-top: 150px;
+}
 
 .org-details-container {
-    margin-top: 25px;
+    margin-top: 150px;
 }
 
 .panel {
@@ -405,6 +448,20 @@ ORGANIZATION DETAILS CONFIGURATIONS
 
 .detail-panel-body {
     padding: 10px;
+}
+
+.detail-panel-body-mission {
+    padding: 10px;
+}
+.detail-panel-body-need {
+    padding: 10px;
+    height: 200px;
+    overflow-y: auto;
+}
+.detail-panel-body-service {
+    padding: 10px;
+    height: 200px;
+    overflow-y: auto;
 }
 
 .detail-panel-text {

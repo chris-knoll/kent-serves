@@ -3,77 +3,37 @@ require('./inc/utilities.inc.php');
 require_once('./inc/header.php');
 require('../db.php');
 require_once('./inc/db_functions/calendar-queries.php');
+
+if($_GET['startMo']) {
+  $startMonth = $_GET['startMo'];
+} else {
+  $startMonth = 0;
+}
+
+if($_GET['totalMos']) {
+  $totalMonthsToDisplay = $_GET['totalMos'];
+} else {
+  $totalMonthsToDisplay = 6;
+}
 ?>
 
 <div class="container mtb">
+  <div class="calendarPadding">
 
-  <div class="panel panel-default col-md-6 col-lg-4 calendar-month">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <?php displayMonthTitle(0); ?>
-      </h3>
+    <?php for($i = 0; $i < $totalMonthsToDisplay; $i++) { ?>
+      <div class="panel panel-default col-md-6 col-lg-4 calendar-month">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <?php displayMonthTitle($startMonth + $i); ?>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <?php displayOneMonthOfEvents($startMonth + $i); ?>
+        </div>
+      </div>
+      <?php } // end for loop?>
     </div>
-    <div class="panel-body">
-      <?php displayOneMonthOfEvents(0); ?>
-    </div>
-  </div>
-
-  <div class="panel panel-default col-md-6 col-lg-4 calendar-month">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <?php displayMonthTitle(1); ?>
-      </h3>
-    </div>
-    <div class="panel-body">
-      <?php displayOneMonthOfEvents(1); ?>
-    </div>
-  </div>
-
-  <div class="panel panel-default col-md-6 col-lg-4 calendar-month">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <?php displayMonthTitle(2); ?>
-      </h3>
-    </div>
-    <div class="panel-body">
-      <?php displayOneMonthOfEvents(2); ?>
-    </div>
-  </div>
-
-  <div class="panel panel-default col-md-6 col-lg-4 calendar-month">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <?php displayMonthTitle(3); ?>
-      </h3>
-    </div>
-    <div class="panel-body">
-      <?php displayOneMonthOfEvents(3); ?>
-    </div>
-  </div>
-
-  <div class="panel panel-default col-md-6 col-lg-4 calendar-month">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <?php displayMonthTitle(4); ?>
-      </h3>
-    </div>
-    <div class="panel-body">
-      <?php displayOneMonthOfEvents(4); ?>
-    </div>
-  </div>
-
-  <div class="panel panel-default col-md-6 col-lg-4 calendar-month">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <?php displayMonthTitle(5); ?>
-      </h3>
-    </div>
-    <div class="panel-body">
-      <?php displayOneMonthOfEvents(5); ?>
-    </div>
-  </div>
-
-</div><!-- /container -->
+  </div><!-- /container -->
 
 
-<?php require_once('./inc/footer.php');
+  <?php require_once('./inc/footer.php');

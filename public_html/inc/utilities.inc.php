@@ -1,7 +1,7 @@
 <?php
 // Autoload classes from "classes" Directory
 function class_loader($class) {
-  require('classes/' . $class . '.php');
+  require($_SERVER["DOCUMENT_ROOT"]  . '/classes/' . $class . '.php');
 }
 spl_autoload_register('class_loader');
 

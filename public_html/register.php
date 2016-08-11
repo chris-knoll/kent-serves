@@ -1,22 +1,13 @@
 <?php
-require('./inc/utilities.inc.php');
-require_once('./inc/header.php');
-require('./inc/registration-form-process.php');
+// Need to check if utilities already included or else could get an error.
+if (!function_exists('class_loader')) {
+	require($_SERVER["DOCUMENT_ROOT"] . '/inc/utilities.inc.php');
+}
+require($_SERVER["DOCUMENT_ROOT"] . '/inc/header.php');
+//require($_SERVER["DOCUMENT_ROOT"] . '/inc/registration-form-process.php');
 ?>
 
 <script type="text/javascript" src="checkbox.js"></script>
-
-<!-- *****************************************************************************************************************
-BLUE WRAP
-***************************************************************************************************************** -->
-<div id="blue">
-	<div class="container">
-		<div class="row">
-			<h3>Registration Form</h3>
-		</div><!-- /row -->
-	</div> <!-- /container -->
-</div><!-- /blue -->
-
 
 <!-- *****************************************************************************************************************
 CONTACT FORMS
@@ -24,6 +15,7 @@ CONTACT FORMS
 
 
 <div class="container mtb">
+	<div class="rborder"
 	<div class="row">
 		<div class="col-xs-0 col-lg-2"></div><!-- spacer to center form -->
 		<div class="col-lg-8">
@@ -32,20 +24,22 @@ CONTACT FORMS
 				<div class="hline"></div>
 				<p><?php echo $result; ?></p>
 				<p>Enter your organization and contact information below to be added to our Partners list.</p>
+				<?php if(isset($submissionIsValid) && $submissionIsValid == false) printHeaderError(); ?>
 			</div>
-			<form role="form" method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
+			<form method="post" action="<?php echo $_SERVER["URI"] . '/inc/registration-form-process.php'; ?>">
 				<br/>
 
 				<!-- ORGANIZATION FORM INPUT -->
 				<div class="row">
 					<h4>Organization Information</h4>
 					<div class="hline"></div>
-				
+
 					<div class="row">
 						<div class="form-group col-sm-6">
 							<label for="inputOrganization">Organization Name*</label>
 							<input type="text" name="inputOrganization" class="form-control" id="inputOrganization" value="<?php echo $orgName; ?>">
 							<?php if($orgNameIsInvalid) printNameError(); ?>
+							<?php if($orgNameAlreadyRegistered) printOrgAlreadyRegisteredError(); ?>
 						</div>
 						<div class="form-group col-sm-6">
 							<label for="inputPhone">Organization Phone Number*</label>
@@ -53,7 +47,7 @@ CONTACT FORMS
 							<?php if($orgPhoneIsInvalid) printPhoneError(); ?>
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="form-group col-xs-12">
 							<label for="inputMission">Mission Statement*</label>
@@ -62,7 +56,7 @@ CONTACT FORMS
 							<?php if($orgMissionIsInvalid) printMissionError(); ?>
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="form-group col-sm-12">
 							<label for="inputAddress">Address*</label>
@@ -71,7 +65,7 @@ CONTACT FORMS
 						</div>
 					</div>
 
-					
+
 					<div class="row">
 						<div class="form-group col-sm-6">
 							<label for="inputWebsite">Website</label>
@@ -84,7 +78,7 @@ CONTACT FORMS
 							value="<?php if ($facebook) { echo $facebook; } ?>">
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="form-group col-sm-12">
 							<label for="selectService">Select area of service*</label>
@@ -102,51 +96,48 @@ CONTACT FORMS
 							</select>
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="form-group col-sm-12">
-						<label for="selectService">Select organization needs</label>
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" name="volunteerNeed" value="Volunteers" id="volunteers"> Volunteers
-							</label>
-						</div>
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" name="boardMemNeed" value="Board Members" id="boardMembers"> Board Members
-							</label>
-						</div>
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" name="fundingNeed" value="Funding" id="funding"> Funding
-							</label>
-						</div>
-						<div class="checkbox">
-							<label>
-								<input type="checkbox"  name="partnershipsNeed" value="Partnerships / Collaboration" id="partnershipsCollaboration"> Partnerships / Collaboration
-							</label>
-						</div>
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" name="spaceNeed" value="Meeting Space" id="meetingSpace"> Meeting Space
-							</label>
-						</div>
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" name="otherNeed" value="Other" id="other"> Other
-							</label>
-						</div>
-						<div id="textbox">
-							<div class="form-group">
+							<label for="selectService">Select organization needs</label>
+							<div class="checkbox">
 								<label>
-									<textarea class="form-control" rows="5" name="otherNeedDetails" id="textArea"></textarea>							</label>
+									<input type="checkbox" name="volunteerNeed" value="Volunteers" id="volunteers"> Volunteers
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="boardMemNeed" value="Board Members" id="boardMembers"> Board Members
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="fundingNeed" value="Funding" id="funding"> Funding
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox"  name="partnershipsNeed" value="Partnerships / Collaboration" id="partnershipsCollaboration"> Partnerships / Collaboration
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="spaceNeed" value="Meeting Space" id="meetingSpace"> Meeting Space
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="otherNeed" value="Other" id="other"> Other
+								</label>
+							</div>
+							<div id="textbox">
+								<div class="form-group">
+									<label>
+										<textarea class="form-control" rows="5" name="otherNeedDetails" id="textArea"></textarea>							</label>
+									</div>
 								</div>
 							</div>
-
 						</div>
-					</div>
-					
-				</div>
 						<!-- END ORGANIZATION FORM INPUT -->
 
 						<br/><br/>
@@ -155,20 +146,21 @@ CONTACT FORMS
 						<div class="row">
 							<h4>Main Contact Information</h4>
 							<div class="hline"></div>
-						
-						
+
+
 							<div class="row">
-								<div class="form-group col-sm-6 col-md-4">
+								<div class="form-group col-md-4">
 									<label for="inputMainContact">Main Contact Name*</label>
 									<input type="text" name="inputMainContact" class="form-control" id="inputMainContact"  value="<?php echo $mainContact; ?>">
 									<?php if($mainContactNameIsInvalid) printNameError(); ?>
 								</div>
-								<div class="form-group col-sm-6 col-md-4">
+								<div class="form-group col-md-4">
 									<label for="inputMainContactEmail">Main Contact Email*</label>
 									<input type="email" name="inputMainContactEmail" class="form-control" id="inputMainContactEmail" value="<?php echo $mainContactEmail; ?>">
 									<?php if($mainContactEmailIsInvalid) printEmailError(); ?>
+									<?php if($accountExistsForGivenEmail) printAccountExistsForEmailError(); ?>
 								</div>
-								<div class="form-group col-sm-6 col-md-4">
+								<div class="form-group col-md-4">
 									<label for="inputMainContactPhone">Main Contact Phone</label>
 									<input type="text" name="inputMainContactPhone" class="form-control" id="inputMainContactPhone" value="<?php echo $mainContactPhone; ?>" placeholder="Optional">
 									<?php if($mainContactPhoneIsInvalid) printPhoneError(); ?>
@@ -183,28 +175,28 @@ CONTACT FORMS
 						<div class="row">
 							<h4>Alternative Contact Information (Optional)</h4>
 							<div class="hline"></div>
-							
-								<div class="row">
-									<div class="form-group col-sm-6 col-md-4">
+
+							<div class="row">
+								<div class="form-group col-md-4">
 									<label for="inputAlternativeContact">Alternative Contact Name</label>
 									<input type="text" name="inputAlternativeContact" class="form-control" id="inputAlternativeContact" placeholder="Optional"
-									value="<?php if ($alternativeContact) { echo $alternativeContact; } ?>">>
+									value="<?php if ($alternativeContact) { echo $alternativeContact; } ?>">
 									<?php if($alternativeContactNameIsInvalid) printNameError(); ?>
 								</div>
-								<div class="form-group col-sm-6 col-md-4">
+								<div class="form-group col-md-4">
 									<label for="inputAlternativeContactEmail">Alternative Contact Email</label>
 									<input type="text" name="inputAlternativeContactPhone" class="form-control" id="inputAlternativeContactEmail" placeholder="Optional"
-										   value="<?php if ($alternativeContactEmail) { echo $alternativeContactEmail; } ?>">
+									value="<?php if ($alternativeContactEmail) { echo $alternativeContactEmail; } ?>">
 									<?php if($alternativeContactEmailIsInvalid) printEmailError(); ?>
 								</div>
-								<div class="form-group col-sm-6 col-md-4">
+								<div class="form-group col-md-4">
 									<label for="inputAlternativeContactPhone">Alternative Contact Phone</label>
 									<input type="text" name="inputAlternativeContactPhone" class="form-control" id="inputAlternativeContactPhone" placeholder="Optional"
-									value="<?php if ($alternativeContactPhone) { echo $alternativeContactPhone; } ?>">>
+									value="<?php if ($alternativeContactPhone) { echo $alternativeContactPhone; } ?>">
 									<?php if($alternativeContactPhoneIsInvalid) printPhoneError(); ?>
 								</div>
 							</div>
-								
+
 						</div>
 						<!-- END ALTERNATIVE CONTACT INPUT -->
 
@@ -215,6 +207,7 @@ CONTACT FORMS
 					</form>  <br />
 				</div><!-- /col-lg-8 -->
 			</div><!-- /row -->
-		</div><!-- /container -->
+		</div>
+	</div><!-- /container -->
 
-		<?php require_once('./inc/footer.php');
+	<?php require_once($_SERVER["DOCUMENT_ROOT"] . '/inc/footer.php');

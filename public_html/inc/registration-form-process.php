@@ -1,6 +1,8 @@
 <?php
-require('db_functions/org-main-queries.php');
-require('org-form-validation.php');
+//require($_SERVER["DOCUMENT_ROOT"] . '/inc/utilities.inc.php');
+require($_SERVER["DOCUMENT_ROOT"] . '/inc/db_functions/org-main-queries.php');
+require($_SERVER["DOCUMENT_ROOT"] . '/inc/org-form-validation.php');
+require($_SERVER["DOCUMENT_ROOT"] . '/inc/db_functions/new-user-queries.php');
 
 // initialize fields
 $orgName = "";
@@ -65,6 +67,11 @@ if (isset($_POST['submit'])) {
     $orgNameIsInvalid = true;
     $submissionIsValid = false;
   }
+  // Make sure the organization isn't already registered
+  if(organizationWithGivenNameAlreadyExists($orgName)) {
+     $submissionIsValid = false;
+     $orgNameAlreadyRegistered = true;
+ }
   if(!phoneNumberIsValid($orgPhone)) {
     $orgPhoneIsInvalid = true;
     $submissionIsValid = false;
@@ -86,6 +93,10 @@ if (isset($_POST['submit'])) {
   if(!emailAddressIsValid($mainContactEmail)) {
     $mainContactEmailIsInvalid = true;
     $submissionIsValid = false;
+  }
+  if(userAccountAlreadyExistsForEmail($mainContactEmail)) {
+     $submissionIsValid = false;
+     $accountExistsForGivenEmail = true;
   }
   if ($mainContactPhone) {
      if(!phoneNumberIsValid($mainContactPhone)) {
@@ -114,14 +125,6 @@ if (isset($_POST['submit'])) {
     }
   }
 
-
-  /* empty fields
-  $orgName = "";
-  $address = "";
-  $orgPhone = "";
-  $mainContact = "";
-  $mainContactEmail = "";
-  $mainContactPhone = "";*/
   if($submissionIsValid) {
     $result = "Submission of " . $orgName . " successful";
     insertNewOrganization($orgName, $address, $orgPhone, $website, $facebook, $serviceArea,
@@ -129,12 +132,43 @@ if (isset($_POST['submit'])) {
                           $space_need, $other_need, $mission);
     insertContactInfo($orgName, $mainContact, $mainContactEmail, $mainContactPhone,
                       $alternativeContact, $alternativeContactEmail, $alternativeContactPhone);
-    //header("Location: http://kent-serves.greenrivertech.net/partnerstable.php");
-    
+
+
+    // INSERT NEW USER BASED OFF THE MAIN CONTACT EMAIL ADDRESS
+    $generatedPassword = getRandomPassword();
+    $orgId = getOrganizationIdByMainContactEmail($mainContactEmail);
+    insertNewUser($mainContactEmail, $orgId, $generatedPassword);
+
+    // SEND EMAIL TO MAIN CONTACT EMAIL WITH RANDOM PASSWORD AND A LINK TO RESET THE PASSWORD
+    $message = "Thank you for registering your organization with Kent Serves!  Please use the email address provided on the registration form as your login: " . $mainContactEmail . ".";
+    $message .= "\n\nYou have been assigned a temporary password:\n" . $generatedPassword . "\n";
+    $message .= "\nYou can log in to Kent Serves at any time at this url: http://kent-serves.greenrivertech.net/login.php";
+    mail($mainContactEmail, "Kent Serves Login Information", $message);
+
+    // DISPLAY THE SUCCESS MESSAGE
+    include($_SERVER["DOCUMENT_ROOT"] . '/registration-success.php');
+
+    } else { // If form was not valid...
+      include($_SERVER["DOCUMENT_ROOT"] . '/register.php');
+    }
+}
+
+function getRandomPassword() {
+  $alphabet = 'abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ23456789';
+  $pass = array(); //remember to declare $pass as an array
+  $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+  for ($i = 0; $i < 8; $i++) {
+      $n = rand(0, $alphaLength);
+      $pass[] = $alphabet[$n];
   }
+  return implode($pass); //turn the array into a string
 }
 
 // Print functions to display errors to user
+function printHeaderError() {
+   echo "<p class='input-error'>There were one or more errors with your form input.  Please review the fields below.</p>";
+}
+
 function printPhoneError() {
   echo "<p class='input-error'>Please enter a valid phone number with area code.</p>";
 }
@@ -153,6 +187,14 @@ function printAddressError() {
 
 function printMissionError() {
   echo "<p class='input-error'>Please enter a mission statement.</p>";
+}
+
+function printAccountExistsForEmailError() {
+   echo "<p class='input-error'>This email address already has a registered account associated with it.</p>";
+}
+
+function printOrgAlreadyRegisteredError() {
+   echo "<p class='input-error'>That organization name has already been registered.</p>";
 }
 
 
@@ -230,33 +272,23 @@ if (isset($_POST['submitChanges'])) {
   }
 
   //Alternative contact validation
-  if($alternativeContact) {
+  if($alternativeContact) { // Only validate if there's something here
     if(!nameIsValid($alternativeContact)) {
       $alternativeContactNameIsInvalid = true;
       $submissionIsValid = false;
     }
-  }
-  if($alternativeContactEmail) {
+
     if(!emailAddressIsValid($alternativeContactEmail)) {
       $alternativeContactEmailIsInvalid = true;
       $submissionIsValid = false;
     }
-  }
-  if($alternativeContactPhone) {
+
     if(!phoneNumberIsValid($alternativeContactPhone)) {
       $alternativeContactPhoneIsInvalid = true;
       $submissionIsValid = false;
     }
   }
 
-
-  /* empty fields
-  $orgName = "";
-  $address = "";
-  $orgPhone = "";
-  $mainContact = "";
-  $mainContactEmail = "";
-  $mainContactPhone = "";*/
   if($submissionIsValid) {
     $result = "Submission of " . $orgName . " successful";
     insertNewOrganization($orgName, $address, $orgPhone, $website, $facebook, $serviceArea,
@@ -264,8 +296,6 @@ if (isset($_POST['submitChanges'])) {
                           $space_need, $other_need, $mission);
     insertContactInfo($orgName, $mainContact, $mainContactEmail, $mainContactPhone,
                       $alternativeContact, $alternativeContactEmail, $alternativeContactPhone);
-    //header("Location: http://kent-serves.greenrivertech.net/partnerstable.php");
-    
   }
 }
 
