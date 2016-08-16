@@ -1147,3 +1147,7 @@
 [09-Aug-2016 20:53:16 America/Chicago] PHP Fatal error:  Call to a member function getOrgId() on a non-object in /home/kentserves/public_html/inc/db_functions/org-main-queries.php on line 293
 [09-Aug-2016 21:23:46 America/Chicago] PHP Fatal error:  Call to a member function getOrgId() on a non-object in /home/kentserves/public_html/inc/db_functions/org-main-queries.php on line 293
 [09-Aug-2016 21:25:27 America/Chicago] PHP Fatal error:  Call to a member function getOrgId() on a non-object in /home/kentserves/public_html/inc/db_functions/org-main-queries.php on line 303
+[12-Aug-2016 16:29:56 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home/kentserves/public_html/calendar.php on line 59
+[12-Aug-2016 18:48:06 America/Chicago] PHP Parse error:  syntax error, unexpected ',' in /home/kentserves/public_html/calendar.php on line 32
+[12-Aug-2016 18:48:31 America/Chicago] PHP Parse error:  syntax error, unexpected '"</option>"' (T_CONSTANT_ENCAPSED_STRING), expecting ',' or ';' in /home/kentserves/public_html/calendar.php on line 38
+[12-Aug-2016 18:48:34 America/Chicago] PHP Parse error:  syntax error, unexpected '"</option>"' (T_CONSTANT_ENCAPSED_STRING), expecting ',' or ';' in /home/kentserves/public_html/calendar.php on line 38
