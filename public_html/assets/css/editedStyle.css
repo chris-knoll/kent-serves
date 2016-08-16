@@ -1028,3 +1028,9 @@ table.dataTable, table.dataTable th, table.dataTable td {
     margin-top: 0.5em;
   }
 }
+
+
+.created-by-footer p {
+  font-size: .8em;
+  text-align: center;
+}

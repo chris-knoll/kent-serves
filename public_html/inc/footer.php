@@ -44,6 +44,12 @@ FOOTER
 					</div>
 
 				</div><!--/row -->
+
+				<!-- Created by footer -->
+				<div class="row">
+					<div class="col-sm-12 created-by-footer"><p>Created by <a href="http://www.greenriver.edu/academics/areas-of-study/bas-programs/software-development.htm">Software Development</a> students at Green River College</p></div>
+				</div>
+
 			</div><!--/container -->
 		</div><!--/footerwrap -->
 
